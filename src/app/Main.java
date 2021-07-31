@@ -1,16 +1,26 @@
 package app;
 
+import java.util.Scanner;
+
 import chess.ChessMatch;
-import tabuleiro.BoardException;
+import chess.ChessPiece;
+import chess.ChessPosition;
 
 public class Main {
 
 	public static void main(String[] args) {
-		try {
-			ChessMatch match = new ChessMatch();
+		Scanner scanner = new Scanner(System.in);
+		ChessMatch match = new ChessMatch();
+		while(true) {
 			UI.printBoard(match.getPieces());
-		} catch (BoardException e) {
-			System.out.println("Erro: " + e.getMessage());
+			System.out.println(" ");
+			System.out.print("Source: ");
+			ChessPosition src = UI.readChessPosition(scanner);
+			System.out.println(" ");
+			System.out.print("Target: ");
+			ChessPosition target = UI.readChessPosition(scanner);
+				
+			ChessPiece capturedPiece = match.performChessMove(src, target);
 		}
 	}
 
