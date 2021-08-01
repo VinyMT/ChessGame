@@ -8,12 +8,24 @@ import tabuleiro.Position;
 
 public class ChessMatch {
 	private Board board;
-
+	private int turn;
+	private Color player;
+	
 	public ChessMatch() {
+		turn = 1;
+		player = Color.WHITE;
 		board = new Board(8, 8);
 		initialSetup();
 	}
 	
+	public int getTurn() {
+		return turn;
+	}
+
+	public Color getPlayer() {
+		return player;
+	}
+
 	public ChessPiece[][] getPieces(){
 		ChessPiece[][] chessPieces = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int i = 0; i < board.getRows(); i ++) {
@@ -22,6 +34,11 @@ public class ChessMatch {
 			} 
 		}
 		return chessPieces;
+	}
+	
+	private void nextTurn() {
+		turn++;
+		player = (player == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 	
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
@@ -41,6 +58,7 @@ public class ChessMatch {
 		validateSrc(src);
 		validateTarget(src, target);
 		Piece capturedPiece = makeMove(src, target);
+		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
 	
@@ -56,6 +74,9 @@ public class ChessMatch {
 	private void validateSrc(Position src) {
 		if(!board.thereIsAPiece(src)) {
 			throw new ChessException("Não existe uma peça nessa posição");
+		}
+		if(player != ((ChessPiece)board.piece(src)).getColor()) {
+			throw new ChessException("Não é a vez dessa cor ainda");
 		}
 		if(!board.piece(src).isThereAnyPossibleMove()) {
 			throw new ChessException("Não existe nennhum movimento possivel para esta peça");
