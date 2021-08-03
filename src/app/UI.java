@@ -66,9 +66,16 @@ public class UI {
 		System.out.println();
 		System.out.println("Turn: " + match.getTurn());
 		System.out.println();
-		System.out.println("Player: " + match.getPlayer());
+		if(!match.getCheckMate()) {
+			System.out.println("Player: " + match.getPlayer());
+			if(match.getCheck()) {
+				System.out.println("Check!");
+			}
+		} else {
+			System.out.println("CHECKMATE!!!");
+			System.out.println("Winner: " + match.getPlayer());
+		}
 	}
-	
 	
 	public static void printBoard(ChessPiece[][] pieces) {
 		for(int i = 0; i < pieces.length; i++) {
