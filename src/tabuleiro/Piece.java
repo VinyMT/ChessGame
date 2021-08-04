@@ -8,7 +8,7 @@ public abstract class Piece {
 		this.board = board;
 	}
 
-	protected Board getBoard() {
+	public Board getBoard() {
 		return board;
 	}
 	
