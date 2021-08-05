@@ -5,15 +5,11 @@ import chess.Color;
 import tabuleiro.Board;
 import tabuleiro.Position;
 
-public class Rook extends ChessPiece{
+public class Queen extends ChessPiece{
 
-	public Rook(Board board, Color color) {
+	public Queen(Board board, Color color) {
 		super(board, color);
-	}
-
-	@Override
-	public String toString() {
-		return "R";
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -57,7 +53,53 @@ public class Rook extends ChessPiece{
 			matrix[p.getRow()][p.getColumn()] = true;
 		}
 		
+		p.setValues(position.getRow() - 1, position.getColumn() - 1);	
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+			p.setRow(p.getRow() - 1);
+			p.setColumn(p.getColumn() - 1);
+		}
+		if(getBoard().positionExists(p) && isThereOponentPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+		}
+		
+		p.setValues(position.getRow() + 1, position.getColumn() + 1);	
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+			p.setRow(p.getRow() + 1);
+			p.setColumn(p.getColumn() + 1);
+		}
+		if(getBoard().positionExists(p) && isThereOponentPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+		}
+		
+		p.setValues(position.getRow() - 1, position.getColumn() + 1);	
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+			p.setRow(p.getRow() - 1);
+			p.setColumn(p.getColumn() + 1);
+		}
+		if(getBoard().positionExists(p) && isThereOponentPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+		}
+		
+		p.setValues(position.getRow() + 1, position.getColumn() - 1);	
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+			p.setRow(p.getRow() + 1);
+			p.setColumn(p.getColumn() - 1);
+		}
+		if(getBoard().positionExists(p) && isThereOponentPiece(p)) {
+			matrix[p.getRow()][p.getColumn()] = true;
+		}
+		
 		return matrix;
 	}
+
+	@Override
+	public String toString() {
+		return "Q";
+	}
+
 	
 }
